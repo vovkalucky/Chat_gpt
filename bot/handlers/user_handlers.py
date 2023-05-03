@@ -46,9 +46,22 @@ async def process_button_about_press(callback: types.CallbackQuery):
     await callback.message.answer(text='Добавить описание', reply_markup=get_about_kb())
     await callback.answer()
 
+some_list = [7, 14, 28, 32, 32, '56']
+def custom_filter(some_list) -> bool:
+    sum = 0
+    for i in some_list:
+        if isinstance(i, int) and i % 7 == 0:
+            sum+= i
+    if sum <= 83:
+        return True
+    else:
+        return False
+
 @router.message(filters.Text('Key'))
 async def send_message(message: types.Message) -> None:
     await message.answer(text="Filter")
+    print(custom_filter(some_list))
+
 
 @router.message()
 async def send_message(message: types.Message) -> None:
