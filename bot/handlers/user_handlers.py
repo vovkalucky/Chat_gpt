@@ -5,14 +5,7 @@ from aiogram.types import CallbackQuery
 from aiogram.filters import Command
 from aiogram import Router
 from bot.external_services.openai_chatgpt import clear_context, update
-# import openai
-# openai.api_key = os.getenv("OPENAI_API_KEY")
-# messages = [
-#         {"role" : "system", "content" : "You are smart bot"}
-#     ]
-# async def update(messages, role, content):
-#     messages.append({"role": role, "content": content})
-#     return messages
+from aiogram import filters
 
 # Инициализируем роутер уровня модуля
 router: Router = Router()
@@ -44,9 +37,6 @@ async def start_chat(message: types.Message | types.CallbackQuery) -> None:
 
 @router.message(Command(commands=['cancel']))
 async def context_clear(message: types.Message) -> None:
-    # messages = [
-    #     {"role" : "system", "content" : "You are smart bot"}
-    # ]
     await clear_context()
     await message.answer(text="Контекст беседы очищен.\nБот забыл предыдущий диалог")
 
@@ -55,6 +45,10 @@ async def context_clear(message: types.Message) -> None:
 async def process_button_about_press(callback: types.CallbackQuery):
     await callback.message.answer(text='Добавить описание', reply_markup=get_about_kb())
     await callback.answer()
+
+@router.message(filters.Text('Key'))
+async def send_message(message: types.Message) -> None:
+    await message.answer(text="Filter")
 
 @router.message()
 async def send_message(message: types.Message) -> None:
