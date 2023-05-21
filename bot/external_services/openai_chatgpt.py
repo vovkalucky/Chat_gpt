@@ -4,15 +4,19 @@ import openai
 messages = [
         {"role": "system", "content": "You are smart bot"}
     ]
+
+
 async def add(messages, role, content) -> list:
     messages.append({"role": role, "content": content})
     return messages
+
 
 async def clear_context() -> list:
     messages = [
         {"role": "system", "content": "You are smart bot"}
     ]
     return messages
+
 
 async def update(message) -> str:
     await add(messages, "user", message.text)
