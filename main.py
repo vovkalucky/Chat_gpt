@@ -25,9 +25,9 @@ async def main() -> None:
     # Настраиваем кнопку Menu
     await set_main_menu(bot)
 
-    # Регистриуем роутеры в диспетчере
+    # Регистрируем роутеры в диспетчере
     dp.include_router(user_handlers.router)
-    models.sql_start()
+
 
     # Пропускаем накопившиеся апдейты и запускаем polling
     await bot.delete_webhook(drop_pending_updates=True)
