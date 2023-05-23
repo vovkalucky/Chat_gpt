@@ -7,7 +7,6 @@ from aiogram import Router
 from bot.external_services.openai_chatgpt import clear_context, update
 from aiogram import filters
 from bot.lexicon.lexicon_ru import LEXICON_RU
-from bot.models.models import sql_add_commit, sql_start
 
 # Инициализируем роутер уровня модуля
 router: Router = Router()
@@ -22,6 +21,4 @@ async def process_start_command(message: types.Message | types.CallbackQuery) ->
         await message.message.answer(text=LEXICON_RU['/start'], reply_markup=get_main_kb())
         await message.answer()
     else:
-        sql_start()
-        await sql_add_commit(message)
         await message.answer(text=LEXICON_RU['/start'], reply_markup=get_main_kb())
