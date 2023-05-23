@@ -1,10 +1,6 @@
-from aiogram import types
 from bot.models.models import sql_start, sql_add_user, remove_user_from_database
 from aiogram import F, Router
-
-from aiogram.filters.chat_member_updated import \
-    ChatMemberUpdatedFilter, MEMBER, KICKED
-
+from aiogram.filters.chat_member_updated import ChatMemberUpdatedFilter, MEMBER, KICKED
 from aiogram.types import ChatMemberUpdated, Message
 
 router: Router = Router()

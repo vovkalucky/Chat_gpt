@@ -24,7 +24,7 @@ async def sql_add_user(message):
         if result is None:
             cur.execute('INSERT INTO users VALUES (?,?,?)', (user_id, username, date))
             conn.commit()
-            print('Пользователь добавлен в базу')
+            print('Новый пользователь добавлен в базу')
         # else:
         #     print("Значение user_id уже существует в таблице.")
 

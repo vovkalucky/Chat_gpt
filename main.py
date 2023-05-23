@@ -2,12 +2,13 @@ import asyncio
 import os
 from dotenv import load_dotenv
 from aiogram import Bot, Dispatcher
-from bot.handlers import other_handlers, user_handlers
+from bot.handlers import other_handlers, user_handlers, admin_handlers
 from bot.keyboards.set_menu import set_main_menu
 import logging
 
 # Инициализируем логгер
 logger = logging.getLogger(__name__)
+
 
 async def main() -> None:
     # Конфигурируем логирование
@@ -26,8 +27,7 @@ async def main() -> None:
     await set_main_menu(bot)
 
     # Регистрируем роутеры в диспетчере
-    dp.include_routers(user_handlers.router, other_handlers.router)
-
+    dp.include_routers(admin_handlers.router, user_handlers.router, other_handlers.router)
 
     # Пропускаем накопившиеся апдейты и запускаем polling
     await bot.delete_webhook(drop_pending_updates=True)

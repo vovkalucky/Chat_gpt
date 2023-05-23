@@ -23,11 +23,11 @@ async def process_start_command(message: types.Message | types.CallbackQuery) ->
         await message.message.answer(text=LEXICON_RU['/start'], reply_markup=get_main_kb())
         await message.answer()
     else:
-        #await sql_add_commit(message)
-        if message.chat.id == int(os.getenv("ADMIN_ID")):
-            await message.answer(text=LEXICON_RU['/start'], reply_markup=get_admin_main_kb())
-        else:
-            await message.answer(text=LEXICON_RU['/start'], reply_markup=get_main_kb())
+        # #await sql_add_commit(message)
+        # if message.chat.id == int(os.getenv("ADMIN_ID")):
+        #     await message.answer(text=LEXICON_RU['/start'], reply_markup=get_admin_main_kb())
+        # else:
+        await message.answer(text=LEXICON_RU['/start'], reply_markup=get_main_kb())
 
 
 @router.message(Command(commands=['chat']))
