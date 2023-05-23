@@ -1,13 +1,14 @@
 from aiogram import types
+from aiogram import F
 import os
-from bot.keyboards.user_keyboards import get_main_kb, get_about_kb
+from aiogram import Bot
+from bot.keyboards.user_keyboards import get_main_kb, get_admin_main_kb, get_about_kb
 from aiogram.types import CallbackQuery
 from aiogram.filters import Command
 from aiogram import Router
 from bot.external_services.openai_chatgpt import clear_context, update
 from aiogram import filters
 from bot.lexicon.lexicon_ru import LEXICON_RU
-from bot.models.models import sql_add_commit, sql_start
 
 # Инициализируем роутер уровня модуля
 router: Router = Router()
@@ -22,12 +23,11 @@ async def process_start_command(message: types.Message | types.CallbackQuery) ->
         await message.message.answer(text=LEXICON_RU['/start'], reply_markup=get_main_kb())
         await message.answer()
     else:
-        sql_start()
-        await sql_add_commit(message)
-        await message.answer(text=LEXICON_RU['/start'], reply_markup=get_main_kb())
-
-
-
+        #await sql_add_commit(message)
+        if message.chat.id == int(os.getenv("ADMIN_ID")):
+            await message.answer(text=LEXICON_RU['/start'], reply_markup=get_admin_main_kb())
+        else:
+            await message.answer(text=LEXICON_RU['/start'], reply_markup=get_main_kb())
 
 
 @router.message(Command(commands=['chat']))
@@ -72,6 +72,7 @@ async def send_message(message: types.Message) -> None:
 
 
 @router.message()
-async def send_message(message: types.Message) -> None:
+async def send_message(message: types.Message, bot: Bot) -> None:
+    await bot.send_chat_action(message.chat.id, 'typing')  # Эффект набора сообщения "Печатает..."
     answer_gpt = await update(message)
     await message.answer(answer_gpt)
