@@ -12,8 +12,11 @@ def get_main_kb() -> InlineKeyboardMarkup:
     url_button_2: InlineKeyboardButton = InlineKeyboardButton(
         text=LEXICON_RU['about'],
         callback_data='about')
+    url_button_3: InlineKeyboardButton = InlineKeyboardButton(
+        text=LEXICON_RU['examples'],
+        callback_data='examples')
     # Добавляем кнопки в клавиатуру методом add
-    keyboard.add(url_button_1).add(url_button_2)
+    keyboard.add(url_button_1).add(url_button_2).add(url_button_3)
     keyboard.adjust(1)  # делает строки по 1 кнопке
     return keyboard.as_markup()
 
@@ -30,8 +33,11 @@ def get_admin_main_kb() -> InlineKeyboardMarkup:
     url_button_3: InlineKeyboardButton = InlineKeyboardButton(
         text=LEXICON_RU['admin'],
         callback_data='admin')
+    url_button_4: InlineKeyboardButton = InlineKeyboardButton(
+        text=LEXICON_RU['examples'],
+        callback_data='examples')
     # Добавляем кнопки в клавиатуру методом add
-    keyboard.add(url_button_1).add(url_button_2).add(url_button_3)
+    keyboard.add(url_button_1).add(url_button_2).add(url_button_3).add(url_button_4)
     keyboard.adjust(1)  # делает строки по 1 кнопке
     return keyboard.as_markup()
 
@@ -41,5 +47,13 @@ def get_about_kb() -> InlineKeyboardMarkup:
     keyboard.add(InlineKeyboardButton(
         text=LEXICON_RU['back'],
         callback_data="back")
+    )
+    return keyboard.as_markup()
+
+def get_examples_kb() -> InlineKeyboardMarkup:
+    keyboard = InlineKeyboardBuilder()
+    keyboard.add(InlineKeyboardButton(
+        text=LEXICON_RU['film_emodsi'],
+        callback_data="film_emodsi")
     )
     return keyboard.as_markup()
